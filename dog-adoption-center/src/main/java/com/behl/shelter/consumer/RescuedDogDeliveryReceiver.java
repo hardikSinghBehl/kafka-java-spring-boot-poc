@@ -42,6 +42,7 @@ public class RescuedDogDeliveryReceiver {
 		dog.setGender(rescuedDeliveredDog.getGender());
 		dog.setName(rescuedDeliveredDog.getName());
 		dog.setSize(rescuedDeliveredDog.getSize());
+		dog.setRescuedAt(rescuedDeliveredDog.getRescuedAt());
 		return dog;
 	}
 
