@@ -30,9 +30,16 @@ public class RescuedDogDeliveryReceiver {
 		final var rescuedDeliveredDog = parseFromString(record);
 
 		final var dog = buildEntity(rescuedDeliveredDog);
-		entityManager.persist(dog);
 
-		log.info("Successfully saved {}", record.value());
+		// Making the consumer idempotent
+		if (entityManager.find(Dog.class, dog.getId()) == null) {
+			entityManager.persist(dog);
+			log.info("Successfully saved {}", record.value());
+		} else {
+			entityManager.merge(dog);
+			log.info("Successfully updated {}", record.value());
+		}
+
 	}
 
 	private Dog buildEntity(final DogDto rescuedDeliveredDog) {
