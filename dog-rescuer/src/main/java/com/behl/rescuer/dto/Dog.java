@@ -1,5 +1,8 @@
 package com.behl.rescuer.dto;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+
 import com.github.javafaker.Faker;
 
 import lombok.Builder;
@@ -17,11 +20,13 @@ public class Dog {
 	private String size;
 	private String coatLength;
 	private String gender;
+	private LocalDateTime rescuedAt;
 
 	public static Dog find() {
 		final var fakeDog = new Faker().dog();
 		return Dog.builder().age(fakeDog.age()).breed(fakeDog.breed()).name(fakeDog.name()).size(fakeDog.size())
-				.coatLength(fakeDog.coatLength()).gender(fakeDog.gender()).build();
+				.coatLength(fakeDog.coatLength()).gender(fakeDog.gender())
+				.rescuedAt(LocalDateTime.now(ZoneId.of("+00:00"))).build();
 	}
 
 }
