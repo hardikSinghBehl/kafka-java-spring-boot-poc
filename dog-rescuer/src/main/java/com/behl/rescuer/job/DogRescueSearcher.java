@@ -4,8 +4,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import com.behl.rescuer.DogDeliveryService;
 import com.behl.rescuer.dto.Dog;
+import com.behl.rescuer.service.DogDeliveryService;
 
 import lombok.AllArgsConstructor;
 
