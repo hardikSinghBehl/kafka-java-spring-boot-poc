@@ -15,7 +15,7 @@ public class DogDeliveryService {
 	private final KafkaTemplate<Null, String> kafkaTemplate;
 
 	public void deliver(final Dog dog) {
-		kafkaTemplate.sendDefault(dog.toString());
+		kafkaTemplate.sendDefault(dog.toString()).addCallback(new LogDeliveryService());
 	}
 
 }
