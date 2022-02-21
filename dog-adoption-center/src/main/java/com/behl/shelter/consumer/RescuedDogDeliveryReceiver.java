@@ -4,6 +4,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.KafkaListener;
 
@@ -35,14 +36,7 @@ public class RescuedDogDeliveryReceiver {
 	}
 
 	private Dog buildEntity(final DogDto rescuedDeliveredDog) {
-		final var dog = new Dog();
-		dog.setAge(rescuedDeliveredDog.getAge());
-		dog.setBreed(rescuedDeliveredDog.getBreed());
-		dog.setCoatLength(rescuedDeliveredDog.getCoatLength());
-		dog.setGender(rescuedDeliveredDog.getGender());
-		dog.setName(rescuedDeliveredDog.getName());
-		dog.setSize(rescuedDeliveredDog.getSize());
-		dog.setRescuedAt(rescuedDeliveredDog.getRescuedAt());
+		final var dog = new ModelMapper().map(rescuedDeliveredDog, Dog.class);
 		return dog;
 	}
 

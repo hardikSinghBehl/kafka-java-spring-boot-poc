@@ -2,6 +2,7 @@ package com.behl.rescuer.dto;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.util.UUID;
 
 import com.github.javafaker.Faker;
 
@@ -14,6 +15,7 @@ import lombok.extern.jackson.Jacksonized;
 @Jacksonized
 public class Dog {
 
+	private UUID id;
 	private String age;
 	private String breed;
 	private String name;
@@ -24,8 +26,8 @@ public class Dog {
 
 	public static Dog find() {
 		final var fakeDog = new Faker().dog();
-		return Dog.builder().age(fakeDog.age()).breed(fakeDog.breed()).name(fakeDog.name()).size(fakeDog.size())
-				.coatLength(fakeDog.coatLength()).gender(fakeDog.gender())
+		return Dog.builder().id(UUID.randomUUID()).age(fakeDog.age()).breed(fakeDog.breed()).name(fakeDog.name())
+				.size(fakeDog.size()).coatLength(fakeDog.coatLength()).gender(fakeDog.gender())
 				.rescuedAt(LocalDateTime.now(ZoneId.of("+00:00"))).build();
 	}
 

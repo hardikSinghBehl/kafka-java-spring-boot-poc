@@ -3,6 +3,8 @@ package com.behl.shelter.controller;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +21,12 @@ public class DogController {
 
 	private final EntityManager entityManager;
 
-	@SuppressWarnings("unchecked")
 	@GetMapping(value = "/dogs", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Dog>> dogListRetreivalHandler() {
-		final List<Dog> dogs = entityManager.createNativeQuery("SELECT * FROM dogs").getResultList();
+		CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+		CriteriaQuery<Dog> criteriaQuery = criteriaBuilder.createQuery(Dog.class);
+		CriteriaQuery<Dog> dogsListQuery = criteriaQuery.select(criteriaQuery.from(Dog.class));
+		final List<Dog> dogs = entityManager.createQuery(dogsListQuery).getResultList();
 		return ResponseEntity.ok(dogs);
 	}
 
